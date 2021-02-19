@@ -1,4 +1,6 @@
 import groovy.json.JsonSlurper
+import jenkins.model.*
+jenkins = Jenkins.instance
 
 def getAcrLoginServer(def acrSettingsJson) {
   def acrSettings = new JsonSlurper().parseText(acrSettingsJson)
@@ -37,8 +39,8 @@ node {
         // you can also use docker.withRegistry if you add a credential
         sh "docker login -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET $loginServer"
         // build image
-        //def imageWithTag = "$loginServer/$imageName:$version"
-        def image = docker.build 'javajenkinsacr.azurecr.io/calculator:1'
+        def imageWithTag = "$loginServer/$imageName:$version"
+        def image = docker.build imageWithTag
         // push image
         image.push()
         // update web app docker settings
