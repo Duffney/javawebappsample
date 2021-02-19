@@ -37,8 +37,8 @@ node {
         // you can also use docker.withRegistry if you add a credential
         sh "docker login -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET $loginServer"
         // build image
-        def imageWithTag = "$loginServer/$imageName:$version"
-        def image = docker.build imageWithTag
+        //def imageWithTag = "$loginServer/$imageName:$version"
+        def image = docker.build javajenkinsacr.azurecr.io/calculator:1
         // push image
         image.push()
         // update web app docker settings
