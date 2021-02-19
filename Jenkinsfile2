@@ -1,6 +1,5 @@
 import groovy.json.JsonSlurper
 import jenkins.model.*
-jenkins = Jenkins.instance
 
 def getAcrLoginServer(def acrSettingsJson) {
   def acrSettings = new JsonSlurper().parseText(acrSettingsJson)
