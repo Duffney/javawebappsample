@@ -6,8 +6,8 @@ def getAcrLoginServer(def acrSettingsJson) {
 }
 
 node {
- withEnv(['AZURE_SUBSCRIPTION_ID=<mySubscriptionId>',
-        'AZURE_TENANT_ID=<myTenantId>']) {
+ withEnv(['AZURE_SUBSCRIPTION_ID=679d0407-bda5-4bc2-971a-c56c1fe1c441',
+        'AZURE_TENANT_ID=e0fdc086-1469-4df3-85c2-4189079f170c']) {
     stage('init') {
       checkout scm
     }
@@ -17,10 +17,10 @@ node {
     }
   
     stage('deploy') {
-      def webAppResourceGroup = 'pcappservicelinuxrg'
-      def webAppName = '<resource_group>'
-      def acrName = '<app_name>'
-      def imageName = '<registry>'
+      def webAppResourceGroup = 'java-jenkins-rg'
+      def webAppName = 'java-jenkins-web-app'
+      def acrName = 'javajenkinsacr.azurecr.io'
+      def imageName = 'calculator'
       // generate version, it's important to remove the trailing new line in git describe output
       def version = sh script: 'git describe | tr -d "\n"', returnStdout: true
       withCredentials([usernamePassword(credentialsId: '<service_principal>', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
